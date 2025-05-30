@@ -1,0 +1,39 @@
+name: Package and Release
+
+on:
+  workflow_run:
+    workflows:
+      - Build and Test
+    branches:
+      - main
+    types:
+      - completed
+      
+jobs:
+  build-and-test:
+    name: package and release
+    runs-on: ubuntu-latest
+    # if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ false }}
+    steps:
+      - name: 📩 checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: ⚙️ setup
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.1
+
+      - name: 🔨 build
+        working-directory: src
+        run: |
+          dotnet restore
+          dotnet build --no-restore
+          dotnet format --no-restore --verify-no-changes
+
+      - name: 🧪 test
+        working-directory: src
+        run: |
+          dotnet test --no-build --collect:"XPlat Code Coverage"
