@@ -1,0 +1,23 @@
+branches:
+  - main
+plugins:
+  - "@semantic-release/commit-analyzer"
+  - "@semantic-release/release-notes-generator"
+  -
+    - "@semantic-release/changelog"
+    - changelogFile: "changelog.md"
+  -
+    - "semantic-release-replace-plugin"
+    - replacements:
+        - files: "src/BasicMediator/BasicMediator.csproj"
+          from: "<Version>*</Version>"
+          to: "<Version>${nextRelease.version}</Version>"
+  -
+    - "@semantic-release/git"
+    - assets:
+      - path: "changelog.md"
+        label: changelog
+      - path: "src/BasicMediator/BasicMediator.csproj"
+        label: project file
+  -
+    - "@semantic-release/github"

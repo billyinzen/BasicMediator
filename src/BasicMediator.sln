@@ -1,0 +1,62 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasicMediator", "BasicMediator\BasicMediator.csproj", "{0605248E-A551-43F3-B1D5-81E763C2FB51}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasicMediator.UnitTests", "BasicMediator.UnitTests\BasicMediator.UnitTests.csproj", "{C2BD6E14-0178-4611-86BF-2D7D092389D8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasicMediator.IntegrationTests", "BasicMediator.IntegrationTests\BasicMediator.IntegrationTests.csproj", "{17FD7F17-B9A7-4583-9942-FEF6E9AF2ABE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Files", "Solution Files", "{0799315C-B449-4CAA-95FA-5981BDC100D0}"
+	ProjectSection(SolutionItems) = preProject
+		..\changelog.md = ..\changelog.md
+		..\package.json = ..\package.json
+		..\readme.md = ..\readme.md
+		..\.editorconfig = ..\.editorconfig
+		..\.gitattributes = ..\.gitattributes
+		..\.gitignore = ..\.gitignore
+		..\.releaserc.yml = ..\.releaserc.yml
+		..\LICENSE = ..\LICENSE
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Github", "Github", "{DB6E5B92-5E3A-41AF-88C9-64B59F868FCC}"
+	ProjectSection(SolutionItems) = preProject
+		..\.github\CODEOWNERS = ..\.github\CODEOWNERS
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflows", "Workflows", "{AEAB6663-9849-49DD-898D-7A8DDA15E789}"
+				ProjectSection(SolutionItems) = preProject
+		..\.github\workflows\commit-linting.yml = ..\.github\workflows\commit-linting.yml
+		..\.github\workflows\build-and-test.yml = ..\.github\workflows\build-and-test.yml
+		..\.github\workflows\package-and-release.yml = ..\.github\workflows\package-and-release.yml
+				EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0605248E-A551-43F3-B1D5-81E763C2FB51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0605248E-A551-43F3-B1D5-81E763C2FB51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0605248E-A551-43F3-B1D5-81E763C2FB51}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0605248E-A551-43F3-B1D5-81E763C2FB51}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2BD6E14-0178-4611-86BF-2D7D092389D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2BD6E14-0178-4611-86BF-2D7D092389D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2BD6E14-0178-4611-86BF-2D7D092389D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2BD6E14-0178-4611-86BF-2D7D092389D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17FD7F17-B9A7-4583-9942-FEF6E9AF2ABE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17FD7F17-B9A7-4583-9942-FEF6E9AF2ABE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17FD7F17-B9A7-4583-9942-FEF6E9AF2ABE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17FD7F17-B9A7-4583-9942-FEF6E9AF2ABE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DB6E5B92-5E3A-41AF-88C9-64B59F868FCC} = {0799315C-B449-4CAA-95FA-5981BDC100D0}
+		{AEAB6663-9849-49DD-898D-7A8DDA15E789} = {DB6E5B92-5E3A-41AF-88C9-64B59F868FCC}
+	EndGlobalSection
+EndGlobal

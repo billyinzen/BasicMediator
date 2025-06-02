@@ -1,0 +1,74 @@
+name: Package and Release
+
+on:
+  workflow_run:
+    workflows:
+      - Build and Test
+    branches:
+      - main
+    types:
+      - completed
+
+env:
+  project_path: ./src/BasicMediator/BasicMediator.csproj
+  nuget_access_token: ${{ secrets.NUGET_ACCESS_TOKEN }}
+  release_bot_id: ${{ vars.RELEASE_BOT_APP_ID }}
+  release_bot_key: ${{ secrets.RELEASE_BOT_PRIVATE_KEY }}
+  HUSKY: 0
+ 
+jobs:
+  build-and-test:
+    name: package and release
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      
+      # Assume release bot identity 
+      - name: 🔐 get release bot token
+        id: generate-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ env.release_bot_id }}
+          private-key: ${{ env.release_bot_key }}
+          
+      - name: 🪪 get release bot user credentials
+        id: get-user-id
+        run: echo "user-id=$(gh api "/users/${{ steps.generate-token.outputs.app-slug }}[bot]" --jq .id)" >> "$GITHUB_OUTPUT"
+        env:
+          GH_TOKEN: ${{ steps.generate-token.outputs.token }}
+          
+      - name: 👋 set git user details
+        run: |
+          git config --global user.name '${{ steps.generate-token.outputs.app-slug }}[bot]'
+          git config --global user.email '${{ steps.get-user-id.outputs.user-id }}+${{ steps.generate-token.outputs.app-slug }}[bot]@users.noreply.github.com'
+        
+      - name: 📩 checkout as release bot
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ steps.generate-token.outputs.token }}
+          persist-credentials: false
+
+      - name: ⚙️ setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/*'
+
+      - name: ⚙️ setup
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.*
+          
+      - name: 🔨 install dependencies
+        run: npm ci --include-dev
+
+      - name: ✨ create release
+        env:
+          GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
+        run: npx semantic-release
+
+      - name: 🎉 publish to packages
+        if: ${{ false }}
+        run: |
+          dotnet pack ${{ env.project_path }} -o ./package/ -c Release
+          dotnet nuget push ./package/*.nupkg --api-key ${{ env.nuget_access_token }} --skip-duplicate --no-symbols
