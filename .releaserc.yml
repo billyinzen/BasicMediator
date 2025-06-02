@@ -10,7 +10,7 @@ plugins:
     - "semantic-release-replace-plugin"
     - replacements:
         - files: "src/BasicMediator/BasicMediator.csproj"
-          from: "<Version>*</Version>"
+          from: "<Version>*.*.*</Version>"
           to: "<Version>${nextRelease.version}</Version>"
   -
     - "@semantic-release/git"
